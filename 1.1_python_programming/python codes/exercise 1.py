@@ -1,0 +1,8 @@
+print('============== STUDENT PROFILE ================')
+name = input('Name: ')
+age = input('Age: ')
+country = input('Country: ')
+university = input('University: ')
+course_of_study = input('Course of Study: ')
+height = input('Height(in meters): ')
+are_u_currently_learning_ai = input('Learning AI: ')
