@@ -1,0 +1,6 @@
+captain@ jack sparrow ?is the greatest! of all pirates?
+git status checks to see if the git project is tracked
+
+git init% initializes an empty# git repository
+seed is the comp!any in which i am doing my internship$
+consistency beats? motivation ?
