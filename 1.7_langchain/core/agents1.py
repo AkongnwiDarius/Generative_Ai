@@ -10,19 +10,21 @@ from core.models import create_model
 from tools.image_gen import generate_image
 from tools.websearch import web_search
 from tools.voice import text_to_speech
+from tools.Rag_tool import smart_retrieval_tool
 
-SYSTEM_PROMPT = """You are a helpful multimodal assistant with tools for image generation, web search, text-to-speech.
+SYSTEM_PROMPT = """You are a helpful multimodal assistant with tools for image generation, web search, text-to-speech, smart_retrieval_tool.
 Only call a tool when a request genuinely needs it:
 - generate image: only when the user explicitly asks you to create, draw or visualize something 
 - web search: only for current events, recent news, or facts you wouldn't reliably know 
 - text to speech: only when the user explicitly asks for audio or spoken output 
+- smart retrieval tool: only when the user ask about information and provide an answer using the retrieved context
 
 For everything else, greetings, general knowledge, explanations, conversations answer directly without calling any tool.
 """
 
 def build_multimodal_agent():
     model = create_model()
-    tools = [generate_image, web_search, text_to_speech]
+    tools = [generate_image, web_search, text_to_speech, smart_retrieval_tool]
     
     # Passing system prompt via prompt= (or state_modifier=)
     return create_react_agent(model, tools, prompt=SYSTEM_PROMPT)
@@ -37,3 +39,8 @@ agent = build_multimodal_agent()
 # Web search
 # result = agent.invoke({ 'messages': [('user','give me latest news on SpaceX')]})
 # print(result['messages'][-1].content)
+
+# Rags system
+result = agent.invoke({'messages': [{'role': 'user', 'content': 'what is fog computing'}]})
+print(result)
+

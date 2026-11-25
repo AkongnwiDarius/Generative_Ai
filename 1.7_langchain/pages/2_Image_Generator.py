@@ -6,6 +6,6 @@ prompt = st.text_input('What can i do for you')
 
 if st.button('Generate'):
     with st.spinner('Generating...'):
-        image = (prompt)
+        image = generate_image(prompt)
         st.image(image, caption=prompt, use_container_width=True)
 

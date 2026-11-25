@@ -8,3 +8,4 @@ text_docs = text_loader.load()
 print(f'Loaded {len(pdf_docs)} pages from the PDF')
 print(pdf_docs[0].metadata)
 print(f'Printing the word docs: {pdf_docs}')
+

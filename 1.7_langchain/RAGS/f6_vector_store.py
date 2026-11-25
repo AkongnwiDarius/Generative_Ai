@@ -23,3 +23,6 @@ vector_store = Chroma.from_documents(
 )
 elapsed = time.perf_counter() - start
 print(f'Built and Persisted index with {len(chunks)} chunks in {elapsed:.2f} seconds')
+
+
+

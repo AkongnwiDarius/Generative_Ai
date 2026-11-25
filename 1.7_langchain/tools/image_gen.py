@@ -1,3 +1,35 @@
+# from httpx import request
+# from langchain_core.tools import tool 
+# import urllib.parse
+# import requests
+# import os 
+
+# # @tool 
+# def generate_image(prompt:str)->str:
+#     """
+#     Generate an image from a text description and return the file path.
+#     Use this when the user asks you to create, draw, or visualise something.
+
+#     Args:
+#         prompt: A clear, descriptive prompt of the image to generate 
+
+#     """
+
+#     encoded = urllib.parse.quote(prompt)
+#     url = f"https://image.pollinations.ai/prompt/{prompt}"
+#     response = requests.get(url, timeout=60)
+#     response.raise_for_status()
+#     os.makedirs('generated_images', exist_ok=True)
+#     path = f'generated_images/{abs(hash(prompt))}.png'
+
+#     #to write of place the image in that path 
+#     with open(path, 'wb') as f:
+#         f.write(response.content)
+#     return path 
+
+# url = f'https://image.pollination.ai/prompt/{encoded}?width=1024&height=1024&nologo=true'
+
+
 from httpx import request
 from langchain_core.tools import tool 
 import urllib.parse
@@ -15,10 +47,14 @@ def generate_image(prompt:str)->str:
 
     """
 
-    encoded = urllib.parse.quote(prompt)
-    url = f"https://image.pollinations.ai/prompt/{prompt}"
-    # url = f'https://image.pollination.ai/prompt/{encoded}?width=1024&height=1024&nologo=true'
-    response = requests.get(url, timeout=60)
+    encoded = urllib.parse.quote(prompt.strip().replace("\n", " "))
+    url = f"https://image.pollinations.ai/prompt/{encoded}"
+    
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+
+    response = requests.get(url, headers=headers, timeout=60, verify=False)
     response.raise_for_status()
     os.makedirs('generated_images', exist_ok=True)
     path = f'generated_images/{abs(hash(prompt))}.png'
@@ -26,4 +62,4 @@ def generate_image(prompt:str)->str:
     #to write of place the image in that path 
     with open(path, 'wb') as f:
         f.write(response.content)
-    return path 
+    return path
